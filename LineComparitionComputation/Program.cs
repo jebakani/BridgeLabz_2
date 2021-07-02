@@ -10,8 +10,11 @@ namespace LineComparisonComputation
         /// UC1 - Calculating the length of line based on points (x1,y1) (x2,y2)
         /// UC2- Checking the equality of the two line
         /// UC3 - Comparing the two line based on end points
+        /// UC4 - Comparing two line using class method
         /// </summary>
         /// <param name="args">The arguments.</param>
+        /// 
+
         static void Main(string[] args)
         {
             //creating object for Random class
@@ -22,7 +25,6 @@ namespace LineComparisonComputation
             int[] y1 = new int[2];
             int[] x2 = new int[2];
             int[] y2 = new int[2];
-            int cmpLine;
 
             for(int line=0;line<=1;line++)
             {
@@ -36,14 +38,34 @@ namespace LineComparisonComputation
             double line1Length = Program.LineLength(x1[0], y1[0], x2[0], y2[0]);
             double line2Length = Program.LineLength(x1[1], y1[1], x2[1], y2[1]);
             Console.WriteLine("Welcome to Line Comparison Computation");
-            cmpLine = line2Length.CompareTo(line1Length);
-            
+
+            //creating the object to call non-static method
+            Program program = new Program();
+            program.CompareLength(line1Length, line2Length);
+
+            Console.Read();
+        }
+
+
+            //Calculating length of the line using LineLength method
+        public static double LineLength(int xPt1, int yPt1, int xPt2, int yPt2)
+        {
+            double length = (Math.Sqrt((xPt2 - xPt1) ^ 2 + (yPt2 - yPt1) ^ 2));
+            return length;
+
+        }
+
+        //method to compare two line
+        private void CompareLength(double len1, double len2)
+        {
+            int cmpLine = len2.CompareTo(len1);
+
             //Comparing two lines 
-            if(cmpLine>EQUALITY)
+            if (cmpLine > EQUALITY)
             {
                 Console.WriteLine("Line2 is greater than Line1");
             }
-            else if(cmpLine<EQUALITY)
+            else if (cmpLine < EQUALITY)
             {
                 Console.WriteLine("Line1 is greater than Line2");
             }
@@ -51,17 +73,7 @@ namespace LineComparisonComputation
             {
                 Console.WriteLine("Two lines are Equal");
             }
-            Console.Read();
         }
-
-
-            //Calculating length of the line using LineLength method
-            public static double LineLength(int xPt1, int yPt1, int xPt2, int yPt2)
-            {
-                double length = (Math.Sqrt((xPt2 - xPt1) ^ 2 + (yPt2 - yPt1) ^ 2));
-                return length;
-
-            }
 
     }
 }
